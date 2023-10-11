@@ -260,7 +260,7 @@ export class MetadataService {
   }
 
   addProfileYamlByNameViaUIBackend(data: any): Observable<any> {
-    let url = "/api/v3/profile/yaml";
+    let url = "/core-metadata/api/v3/deviceprofile";
     return this.http.request('POST', url, {
       body: data,
       responseType: 'text'
@@ -339,7 +339,7 @@ export class MetadataService {
   }
 
   findProfileYamlByNameViaUIBackend(name: string): Observable<any> {
-    let url = "/api/v3/profile/yaml/name/" + name;
+    let url = "/core-metadata/api/v3/deviceprofile/name/" + name;
     return this.http.request('GET', url, {
       responseType: 'text'
     }).pipe(
@@ -368,7 +368,7 @@ export class MetadataService {
   }
 
   updateProfileYamlContentViaUIBackend(data: any):Observable<any> {
-    let url = "/api/v3/profile/yaml";
+    let url = "/core-metadata/api/v3/deviceprofile";
     return this.http.put(url,data,{
       headers: new HttpHeaders({
         'Content-Type': 'text/plain; charset=utf-8'

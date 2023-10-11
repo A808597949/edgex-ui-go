@@ -37,15 +37,24 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     private errSvc: ErrorService,
     private router: Router,
     private route: ActivatedRoute) { }
-
+    
   ngOnInit(): void {
+    function dealJson(json: any): string {
+      delete json.statusCode;
+      json = {
+        requestId:json.profile.id,
+        ...json
+      }
+      delete json.profile.id
+      return `[${JSON.stringify(json,null,2)}]`
+    }
     this.renderYamlSource();
     this.route.queryParams.subscribe(params => {
       if (params['profileName']) {
         this.profileName = params['profileName'];
         this.metaSvc.findProfileYamlByNameViaUIBackend(params['profileName']).subscribe((data: any) => {
           // this.profileYamlSource = data;
-          this.codeMirrorEditor.setValue(data);
+          this.codeMirrorEditor.setValue(dealJson(JSON.parse(data)));
           this.codeMirrorEditor.refresh();
         });
       }
